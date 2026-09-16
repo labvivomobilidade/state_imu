@@ -4,7 +4,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Research: FEEC Unicamp](https://img.shields.io/badge/Research-FEEC%20Unicamp-red.svg)](https://www.feec.unicamp.br/)
 
-This repository provides the comprehensive benchmark, machine-readable feature manifest, statistical dictionaries, in-domain evaluations, cross-vehicle domain transfer analyses, and unsupervised adaptation studies for **operational-state recognition of battery-electric buses (BEBs)** using multi-modal inertial and magnetic sensing.
+This repository provides the comprehensive benchmark, machine-readable feature manifest, statistical dictionaries, in-domain evaluations, cross-vehicle domain transfer analyses, unsupervised adaptation studies, event-level charging session benchmarks, and few-shot supervised target calibration for **operational-state recognition of battery-electric buses (BEBs)** using multi-modal inertial and magnetic sensing.
 
 ---
 
@@ -18,9 +18,11 @@ This repository provides the comprehensive benchmark, machine-readable feature m
 7. [Cross-Vehicle Transfer & Directional Asymmetry](#cross-vehicle-transfer--directional-asymmetry)
 8. [Confounding Factor Controls (Sample Size & Class Distribution)](#confounding-factor-controls-sample-size--class-distribution)
 9. [Target Domain Adaptation & Budget Sensitivity](#target-domain-adaptation--budget-sensitivity)
-10. [Repository File Inventory](#repository-file-inventory)
-11. [Quickstart & Usage](#quickstart--usage)
-12. [Citation & Contact](#citation--contact)
+10. [Supervised Target Calibration (Few-Shot Adaptation)](#supervised-target-calibration-few-shot-adaptation)
+11. [Charging Event Detection & Session-Level Performance](#charging-event-detection--session-level-performance)
+12. [Repository File Inventory](#repository-file-inventory)
+13. [Quickstart & Usage](#quickstart--usage)
+14. [Citation & Contact](#citation--contact)
 
 ---
 
@@ -88,7 +90,7 @@ Both model representations take exactly **137 feature inputs** to prevent dimens
 * **`CAUSAL` Representation**:
   * Retains **110 unchanged base descriptors** and replaces **27 drift-sensitive baseline features** with strictly past-only expanding-median centered variants:
   
-  $$	ilde{x}_{	ext{causal}}(t) = x(t) - 	ext{median}\{x(	au) : 	au < t, 	ext{within the same operating day}\}$$
+  $$\tilde{x}_{\text{causal}}(t) = x(t) - \text{median}\{x(\tau) : \tau < t, \text{within the same operating day}\}$$
 
 * **Strict Causality Guarantees**:
   * `uses_future_windows: false` — Zero look-ahead leakage.
@@ -99,7 +101,7 @@ Both model representations take exactly **137 feature inputs** to prevent dimens
 
 ## 📡 Sensor Configurations & In-Domain Benchmarks
 
-Models were trained with an ensemble classifier ($N_{	ext{estimators}} = 423$) using **5-fold grouped cross-validation** split strictly by calendar operating days.
+Models were trained with an ensemble classifier ($N_{\text{estimators}} = 423$) using **5-fold grouped cross-validation** split strictly by calendar operating days.
 
 ### Performance Summary: Bus A (254 Days, 99,879 Windows)
 | Configuration | Features | Accuracy | Balanced Acc (95% CI) | Macro $F_1$ (95% CI) | Stationary State $F_1$ | Charging $F_1$ | Driving $F_1$ |
@@ -129,7 +131,7 @@ Models were trained with an ensemble classifier ($N_{	ext{estimators}} = 423$) u
 
 To test whether standard feature normalization techniques can replace causal median-centering, five preprocessing schemes were systematically benchmarked on unlabeled test splits (`in_domain_normalization_control.csv`):
 
-| Vehicle | Preprocessing Method | Macro $F_1$ | $\Delta 	ext{Macro } F_1$ | Charging $F_1$ | $\Delta 	ext{Charging } F_1$ | Driving $F_1$ |
+| Vehicle | Preprocessing Method | Macro $F_1$ | $\Delta \text{Macro } F_1$ | Charging $F_1$ | $\Delta \text{Charging } F_1$ | Driving $F_1$ |
 | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
 | **Bus A** | **`CAUSAL`** | **0.8311** | **+0.0413** | **0.7581** | **+0.0946** | 0.9984 |
 | Bus A | `RAW` | 0.7898 | 0.0000 | 0.6635 | 0.0000 | 0.9984 |
@@ -155,8 +157,8 @@ The 41 magnetometer descriptors were isolated into dedicated functional blocks (
 * **`VARIABILITY_DYNAMICS`** (26 features): Variability, spectral powers, differences, and cross-axis correlations.
 * **`MAG_ALL`** (41 features): Full magnetometer feature set.
 
-### In-Domain vs Transfer Performance (Bus A $	o$ Bus B):
-| Magnetic Block | $N_{	ext{feat}}$ | In-Domain Macro $F_1$ (Bus A) | Transfer Recorded Charging $F_1$ | Transfer YAW90 Charging $F_1$ | $\Delta_{	ext{yaw} - 	ext{rec}}$ Charging $F_1$ | Transfer Driving $F_1$ |
+### In-Domain vs Transfer Performance (Bus A $\to$ Bus B):
+| Magnetic Block | $N_{\text{feat}}$ | In-Domain Macro $F_1$ (Bus A) | Transfer Recorded Charging $F_1$ | Transfer YAW90 Charging $F_1$ | $\Delta_{\text{yaw} - \text{rec}}$ Charging $F_1$ | Transfer Driving $F_1$ |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | **`LEVEL_AXIS`** | 12 | 0.6761 | 0.5989 | 0.2727 | -0.3262 | 0.8409 |
 | **`LEVEL_NORM`** | 3 | 0.4452 | 0.1703 | 0.1703 | **0.0000** | 0.7201 |
@@ -166,7 +168,7 @@ The 41 magnetometer descriptors were isolated into dedicated functional blocks (
 
 ### Statistical Contrast Highlights (2,000 Bootstrap Replications):
 * **Level vs Dynamics for Charging**: In transfer, `LEVEL_AMPLITUDE` outperforms `VARIABILITY_DYNAMICS` by $\Delta = +0.5814$ on Charging $F_1$ ($p < 0.002$; 99.8% bootstrap samples $> 0$).
-* **Rotation Invariance**: `LEVEL_NORM` achieves mathematically exact rotation invariance ($\Delta_{	ext{yaw}} = 0.0000$), whereas unnormalized axial level features suffer an orientation penalty of $\Delta pprox -0.30$ to $-0.33$ under 90° azimuth rotation.
+* **Rotation Invariance**: `LEVEL_NORM` achieves mathematically exact rotation invariance ($\Delta_{\text{yaw}} = 0.0000$), whereas unnormalized axial level features suffer an orientation penalty of $\Delta \approx -0.30$ to $-0.33$ under 90° azimuth rotation.
 
 ---
 
@@ -176,15 +178,15 @@ Direct cross-vehicle generalization was evaluated bidirectionally (`source_only_
 
 | Transfer Direction | Configuration | Orientation | Accuracy | Macro $F_1$ | Stationary State $F_1$ | Charging $F_1$ | Driving $F_1$ |
 | :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
-| **Bus A $	o$ Bus B** | `A` | RECORDED | 0.7711 | 0.6821 | 0.5884 | 0.7161 | 0.9632 |
-| **Bus A $	o$ Bus B** | `A` | YAW90_LEFT | 0.7728 | 0.6679 | 0.5753 | 0.7408 | 0.9457 |
-| **Bus A $	o$ Bus B** | `A+M` | RECORDED | 0.6717 | 0.5529 | 0.4166 | 0.3613 | 0.9618 |
-| **Bus A $	o$ Bus B** | `A+M` | YAW90_LEFT | **0.8035** | **0.7320** | **0.6609** | **0.7438** | 0.9453 |
-| **Bus A $	o$ Bus B** | `A+M+G` | RECORDED | 0.6409 | 0.4701 | 0.2968 | 0.0074 | 0.9899 |
-| **Bus A $	o$ Bus B** | `A+M+G` | YAW90_LEFT | **0.8395** | **0.7763** | **0.7077** | **0.7065** | 0.9820 |
-| **Bus B $	o$ Bus A** | `A` | RECORDED | 0.7266 | 0.5248 | 0.3676 | 0.0015 | 0.9966 |
-| **Bus B $	o$ Bus A** | `A+M` | RECORDED | 0.7256 | 0.5291 | 0.3750 | 0.0003 | 0.9915 |
-| **Bus B $	o$ Bus A** | `A+M+G` | RECORDED | 0.7335 | 0.5328 | 0.3778 | 0.0003 | 0.9979 |
+| **Bus A $\to$ Bus B** | `A` | RECORDED | 0.7711 | 0.6821 | 0.5884 | 0.7161 | 0.9632 |
+| **Bus A $\to$ Bus B** | `A` | YAW90_LEFT | 0.7728 | 0.6679 | 0.5753 | 0.7408 | 0.9457 |
+| **Bus A $\to$ Bus B** | `A+M` | RECORDED | 0.6717 | 0.5529 | 0.4166 | 0.3613 | 0.9618 |
+| **Bus A $\to$ Bus B** | `A+M` | YAW90_LEFT | **0.8035** | **0.7320** | **0.6609** | **0.7438** | 0.9453 |
+| **Bus A $\to$ Bus B** | `A+M+G` | RECORDED | 0.6409 | 0.4701 | 0.2968 | 0.0074 | 0.9899 |
+| **Bus A $\to$ Bus B** | `A+M+G` | YAW90_LEFT | **0.8395** | **0.7763** | **0.7077** | **0.7065** | 0.9820 |
+| **Bus B $\to$ Bus A** | `A` | RECORDED | 0.7266 | 0.5248 | 0.3676 | 0.0015 | 0.9966 |
+| **Bus B $\to$ Bus A** | `A+M` | RECORDED | 0.7256 | 0.5291 | 0.3750 | 0.0003 | 0.9915 |
+| **Bus B $\to$ Bus A** | `A+M+G` | RECORDED | 0.7335 | 0.5328 | 0.3778 | 0.0003 | 0.9979 |
 
 > **Transfer Asymmetry**: Models trained on Bus A (254 days) generalize well to Bus B, retaining up to $F_1 = 0.776$. Conversely, models trained on Bus B (30 days) fail to detect Charging on Bus A ($F_1 < 0.04$), establishing that diverse multi-month source training data is strictly necessary for zero-shot state transfer.
 
@@ -222,6 +224,59 @@ Unsupervised target domain adaptation was tested using an inductive fixed-test p
 
 ---
 
+## 🛠️ Supervised Target Calibration (Few-Shot Adaptation)
+
+When limited ground-truth labels are obtainable on the target vehicle, supervised target calibration (`vehicle_balanced` strategy across 50 Monte Carlo runs per budget) enables rapid performance recovery with minimal data collection effort (`supervised_calibration_results.csv`):
+
+| Sensor Configuration | Labeled Target Days | Target Exposure (Hours, p50) | Accuracy (p50) | Balanced Acc (p50) | Macro $F_1$ (p50) | Charging $F_1$ (p50) | Driving $F_1$ (p50) |
+| :--- | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| **`A`** | 0 | 0.0 h | 0.8106 | 0.7504 | 0.7071 | 0.7950 | 0.9680 |
+| `A` | 1 | 13.6 h | 0.8321 | 0.7524 | 0.7480 | 0.7714 | 0.9832 |
+| `A` | 3 | 26.6 h | 0.8421 | 0.7734 | 0.7680 | 0.7486 | 0.9856 |
+| `A` | 5 | 45.7 h | 0.8647 | 0.8248 | 0.8208 | 0.7968 | 0.9868 |
+| `A` | 10 | 94.6 h | 0.8936 | 0.8559 | 0.8602 | 0.8299 | 0.9881 |
+| **`A`** | **18** | **158.9 h** | **0.9067** | **0.8719** | **0.8810** | **0.8430** | **0.9890** |
+| **`A+M`** | 0 | 0.0 h | 0.6978 | 0.6382 | 0.5708 | 0.5085 | 0.9647 |
+| `A+M` | 1 | 13.6 h | 0.7997 | 0.7303 | 0.6844 | 0.6567 | 0.9849 |
+| `A+M` | 3 | 26.6 h | 0.8249 | 0.7554 | 0.7283 | 0.6246 | 0.9865 |
+| `A+M` | 5 | 45.7 h | 0.8617 | 0.8188 | 0.8052 | 0.7901 | 0.9883 |
+| `A+M` | 10 | 94.6 h | 0.8972 | 0.8590 | 0.8572 | 0.8416 | 0.9890 |
+| **`A+M`** | **18** | **158.9 h** | **0.9016** | **0.8655** | **0.8650** | **0.8503** | **0.9899** |
+| **`A+M+G`** | 0 | 0.0 h | 0.6358 | 0.5284 | 0.4521 | 0.0239 | 0.9911 |
+| `A+M+G` | 1 | 13.6 h | 0.7712 | 0.7061 | 0.6549 | 0.5304 | 0.9909 |
+| `A+M+G` | 5 | 45.7 h | 0.8540 | 0.8122 | 0.8027 | 0.7128 | 0.9913 |
+| **`A+M+G`** | **18** | **158.9 h** | **0.9017** | **0.8656** | **0.8648** | **0.8371** | **0.9928** |
+
+> **Key Calibration Insight**: Adding just **1 day (~13.6 hours)** of labeled target data lifts tri-modal `A+M+G` Macro $F_1$ from 0.4521 to 0.6549 (and charging $F_1$ from 0.0239 to 0.5304). By **5 target days**, all inertial-magnetic combinations exceed **0.80 Macro $F_1$**, offering an efficient supervised alternative to extensive fleet relabeling.
+
+---
+
+## ⚡ Charging Event Detection & Session-Level Performance
+
+To evaluate real-world utility beyond window-level classifications, the framework was benchmarked against continuous physical charging events (`charging_session_results.csv`, `charging_orientation_changes.csv`) across **20 evaluable physical charging sessions** on Bus B:
+
+### Session-Level Benchmark Summary:
+| Condition | Sensor Configuration | Orientation | Session Recall | Time Precision | False Positives / Day | Daily Charge MAE (min) | Session Coverage (Median) |
+| :--- | :--- | :--- | :---: | :---: | :---: | :---: | :---: |
+| **In-Domain B (OOF)** | `A` | RECORDED | **70.0% (14/20)** | 88.8% | **0.47** | 35.3 min | **0.943** |
+| **In-Domain B (OOF)** | `A+M` | RECORDED | 55.0% (11/20) | 90.7% | **0.30** | 43.1 min | 0.810 |
+| **In-Domain B (OOF)** | `A+M+G` | RECORDED | 55.0% (11/20) | **91.7%** | 0.33 | 43.0 min | 0.810 |
+| **In-Domain B (OOF)** | `M` | RECORDED | 20.0% (4/20) | 87.1% | **0.47** | 71.1 min | 0.000 |
+| **Transfer (A $\to$ B)** | `A` | RECORDED | 45.0% (9/20) | 72.0% | 2.13 | 58.5 min | 0.065 |
+| **Transfer (A $\to$ B)** | `A` | YAW90_LEFT | **55.0% (11/20)** | 65.5% | 2.87 | 64.0 min | **0.948** |
+| **Transfer (A $\to$ B)** | `A+M` | RECORDED | 15.0% (3/20) | 63.2% | 0.80 | 85.9 min | 0.000 |
+| **Transfer (A $\to$ B)** | `A+M` | YAW90_LEFT | **50.0% (10/20)** | 72.8% | 1.77 | 64.9 min | **0.521** |
+| **Transfer (A $\to$ B)** | `A+M+G` | RECORDED | 0.0% (0/20) | 4.0% | 1.27 | 102.3 min | 0.000 |
+| **Transfer (A $\to$ B)** | `A+M+G` | YAW90_LEFT | **40.0% (8/20)** | **77.4%** | 1.43 | 64.7 min | 0.134 |
+
+### Orientation Discrepancy & Session Recovery (`charging_orientation_changes.csv`):
+Under direct transfer, sensor mounting azimuth misalignment severely impedes charging session detection:
+* **`A+M`**: Rotating azimuth by 90° (`YAW90_LEFT`) captures **8 additional charging sessions** previously missed, yielding a net gain of **+7 detected sessions** and improving session coverage by +7.4 pp.
+* **`A+M+G`**: Misses all 20 sessions under `RECORDED` (0% recall), but recovers **8 sessions** under `YAW90_LEFT` (net **+8 detected sessions**, +11.2 pp coverage).
+* **`G` (Gyroscope alone)**: Lacks rotation robustness, losing 7 sessions under YAW90 (-19.2 pp coverage).
+
+---
+
 ## 📂 Repository File Inventory
 
 | File | Type | Description |
@@ -244,6 +299,9 @@ Unsupervised target domain adaptation was tested using an inductive fixed-test p
 | `bfull_symmetric_comparison.csv` | CSV | Symmetric cross-domain evaluation isolating composition effects and vehicle-specific transfer degradation. |
 | `adaptation_budget_sensitivity.csv` | CSV | Sensitivity analysis evaluating unsupervised target domain adaptation methods across budget horizons ($K \in \{1, 3, 7, 14, 18\}$ days). |
 | `target_adaptation_k18.csv` | CSV | Full target adaptation benchmark for $K=18$ calibration days across configurations, orientations, and methods. |
+| `supervised_calibration_results.csv` | CSV | Few-shot target calibration benchmark evaluating performance recovery across $K \in \{0, 1, 2, 3, 5, 10, 18\}$ labeled days. |
+| `charging_session_results.csv` | CSV | Continuous charging session event metrics (Recall, Precision, Daily MAE, Coverage) for in-domain and transfer models. |
+| `charging_orientation_changes.csv` | CSV | Pairwise event-level analysis detailing charging sessions gained, lost, or retained under 90° azimuth sensor rotation. |
 
 ---
 
