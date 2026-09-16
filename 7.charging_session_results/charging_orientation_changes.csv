@@ -1,0 +1,8 @@
+sensor_set,display_model,n_common_observable_sessions,detected_both,gained_with_yaw90,lost_with_yaw90,detected_neither,net_sessions_yaw_minus_recorded,median_delta_session_coverage
+ACC,A,20,8,3,1,8,2,0.0
+MAG,M,20,0,1,0,19,1,0.0
+GYR,G,20,0,0,7,13,-7,-0.19171661813538254
+MAG_GYR,M+G,20,0,0,1,19,-1,0.0
+ACC_MAG,A+M,20,2,8,1,9,7,0.07420051941733874
+ACC_GYR,A+G,20,1,6,4,9,2,0.0
+ACC_MAG_GYR,A+M+G,20,0,8,0,12,8,0.1120037807183365

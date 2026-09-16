@@ -1,0 +1,113 @@
+vehicle,window,representation,sensor_configuration,true_class,predicted_class,count
+Bus B,120s_hop60s,CAUSAL,A,Stationary off,Stationary off,888
+Bus B,120s_hop60s,CAUSAL,A,Stationary off,Stationary on,114
+Bus B,120s_hop60s,CAUSAL,A,Stationary off,Charging,1
+Bus B,120s_hop60s,CAUSAL,A,Stationary off,Driving,30
+Bus B,120s_hop60s,CAUSAL,A,Stationary on,Stationary off,44
+Bus B,120s_hop60s,CAUSAL,A,Stationary on,Stationary on,3148
+Bus B,120s_hop60s,CAUSAL,A,Stationary on,Charging,266
+Bus B,120s_hop60s,CAUSAL,A,Stationary on,Driving,57
+Bus B,120s_hop60s,CAUSAL,A,Charging,Stationary off,20
+Bus B,120s_hop60s,CAUSAL,A,Charging,Stationary on,651
+Bus B,120s_hop60s,CAUSAL,A,Charging,Charging,2491
+Bus B,120s_hop60s,CAUSAL,A,Charging,Driving,0
+Bus B,120s_hop60s,CAUSAL,A,Driving,Stationary off,19
+Bus B,120s_hop60s,CAUSAL,A,Driving,Stationary on,38
+Bus B,120s_hop60s,CAUSAL,A,Driving,Charging,0
+Bus B,120s_hop60s,CAUSAL,A,Driving,Driving,5554
+Bus B,120s_hop60s,CAUSAL,M,Stationary off,Stationary off,850
+Bus B,120s_hop60s,CAUSAL,M,Stationary off,Stationary on,153
+Bus B,120s_hop60s,CAUSAL,M,Stationary off,Charging,5
+Bus B,120s_hop60s,CAUSAL,M,Stationary off,Driving,25
+Bus B,120s_hop60s,CAUSAL,M,Stationary on,Stationary off,530
+Bus B,120s_hop60s,CAUSAL,M,Stationary on,Stationary on,2807
+Bus B,120s_hop60s,CAUSAL,M,Stationary on,Charging,100
+Bus B,120s_hop60s,CAUSAL,M,Stationary on,Driving,78
+Bus B,120s_hop60s,CAUSAL,M,Charging,Stationary off,684
+Bus B,120s_hop60s,CAUSAL,M,Charging,Stationary on,867
+Bus B,120s_hop60s,CAUSAL,M,Charging,Charging,1609
+Bus B,120s_hop60s,CAUSAL,M,Charging,Driving,2
+Bus B,120s_hop60s,CAUSAL,M,Driving,Stationary off,52
+Bus B,120s_hop60s,CAUSAL,M,Driving,Stationary on,44
+Bus B,120s_hop60s,CAUSAL,M,Driving,Charging,0
+Bus B,120s_hop60s,CAUSAL,M,Driving,Driving,5515
+Bus B,120s_hop60s,CAUSAL,G,Stationary off,Stationary off,714
+Bus B,120s_hop60s,CAUSAL,G,Stationary off,Stationary on,293
+Bus B,120s_hop60s,CAUSAL,G,Stationary off,Charging,18
+Bus B,120s_hop60s,CAUSAL,G,Stationary off,Driving,8
+Bus B,120s_hop60s,CAUSAL,G,Stationary on,Stationary off,348
+Bus B,120s_hop60s,CAUSAL,G,Stationary on,Stationary on,2772
+Bus B,120s_hop60s,CAUSAL,G,Stationary on,Charging,368
+Bus B,120s_hop60s,CAUSAL,G,Stationary on,Driving,27
+Bus B,120s_hop60s,CAUSAL,G,Charging,Stationary off,291
+Bus B,120s_hop60s,CAUSAL,G,Charging,Stationary on,1197
+Bus B,120s_hop60s,CAUSAL,G,Charging,Charging,1674
+Bus B,120s_hop60s,CAUSAL,G,Charging,Driving,0
+Bus B,120s_hop60s,CAUSAL,G,Driving,Stationary off,25
+Bus B,120s_hop60s,CAUSAL,G,Driving,Stationary on,23
+Bus B,120s_hop60s,CAUSAL,G,Driving,Charging,0
+Bus B,120s_hop60s,CAUSAL,G,Driving,Driving,5563
+Bus B,120s_hop60s,CAUSAL,M+G,Stationary off,Stationary off,875
+Bus B,120s_hop60s,CAUSAL,M+G,Stationary off,Stationary on,129
+Bus B,120s_hop60s,CAUSAL,M+G,Stationary off,Charging,19
+Bus B,120s_hop60s,CAUSAL,M+G,Stationary off,Driving,10
+Bus B,120s_hop60s,CAUSAL,M+G,Stationary on,Stationary off,308
+Bus B,120s_hop60s,CAUSAL,M+G,Stationary on,Stationary on,2988
+Bus B,120s_hop60s,CAUSAL,M+G,Stationary on,Charging,195
+Bus B,120s_hop60s,CAUSAL,M+G,Stationary on,Driving,24
+Bus B,120s_hop60s,CAUSAL,M+G,Charging,Stationary off,679
+Bus B,120s_hop60s,CAUSAL,M+G,Charging,Stationary on,718
+Bus B,120s_hop60s,CAUSAL,M+G,Charging,Charging,1765
+Bus B,120s_hop60s,CAUSAL,M+G,Charging,Driving,0
+Bus B,120s_hop60s,CAUSAL,M+G,Driving,Stationary off,26
+Bus B,120s_hop60s,CAUSAL,M+G,Driving,Stationary on,22
+Bus B,120s_hop60s,CAUSAL,M+G,Driving,Charging,0
+Bus B,120s_hop60s,CAUSAL,M+G,Driving,Driving,5563
+Bus B,120s_hop60s,CAUSAL,A+M,Stationary off,Stationary off,881
+Bus B,120s_hop60s,CAUSAL,A+M,Stationary off,Stationary on,113
+Bus B,120s_hop60s,CAUSAL,A+M,Stationary off,Charging,5
+Bus B,120s_hop60s,CAUSAL,A+M,Stationary off,Driving,34
+Bus B,120s_hop60s,CAUSAL,A+M,Stationary on,Stationary off,50
+Bus B,120s_hop60s,CAUSAL,A+M,Stationary on,Stationary on,3219
+Bus B,120s_hop60s,CAUSAL,A+M,Stationary on,Charging,193
+Bus B,120s_hop60s,CAUSAL,A+M,Stationary on,Driving,53
+Bus B,120s_hop60s,CAUSAL,A+M,Charging,Stationary off,57
+Bus B,120s_hop60s,CAUSAL,A+M,Charging,Stationary on,499
+Bus B,120s_hop60s,CAUSAL,A+M,Charging,Charging,2606
+Bus B,120s_hop60s,CAUSAL,A+M,Charging,Driving,0
+Bus B,120s_hop60s,CAUSAL,A+M,Driving,Stationary off,19
+Bus B,120s_hop60s,CAUSAL,A+M,Driving,Stationary on,33
+Bus B,120s_hop60s,CAUSAL,A+M,Driving,Charging,0
+Bus B,120s_hop60s,CAUSAL,A+M,Driving,Driving,5559
+Bus B,120s_hop60s,CAUSAL,A+G,Stationary off,Stationary off,903
+Bus B,120s_hop60s,CAUSAL,A+G,Stationary off,Stationary on,113
+Bus B,120s_hop60s,CAUSAL,A+G,Stationary off,Charging,1
+Bus B,120s_hop60s,CAUSAL,A+G,Stationary off,Driving,16
+Bus B,120s_hop60s,CAUSAL,A+G,Stationary on,Stationary off,56
+Bus B,120s_hop60s,CAUSAL,A+G,Stationary on,Stationary on,3187
+Bus B,120s_hop60s,CAUSAL,A+G,Stationary on,Charging,254
+Bus B,120s_hop60s,CAUSAL,A+G,Stationary on,Driving,18
+Bus B,120s_hop60s,CAUSAL,A+G,Charging,Stationary off,20
+Bus B,120s_hop60s,CAUSAL,A+G,Charging,Stationary on,870
+Bus B,120s_hop60s,CAUSAL,A+G,Charging,Charging,2272
+Bus B,120s_hop60s,CAUSAL,A+G,Charging,Driving,0
+Bus B,120s_hop60s,CAUSAL,A+G,Driving,Stationary off,21
+Bus B,120s_hop60s,CAUSAL,A+G,Driving,Stationary on,22
+Bus B,120s_hop60s,CAUSAL,A+G,Driving,Charging,0
+Bus B,120s_hop60s,CAUSAL,A+G,Driving,Driving,5568
+Bus B,120s_hop60s,CAUSAL,A+M+G,Stationary off,Stationary off,896
+Bus B,120s_hop60s,CAUSAL,A+M+G,Stationary off,Stationary on,116
+Bus B,120s_hop60s,CAUSAL,A+M+G,Stationary off,Charging,2
+Bus B,120s_hop60s,CAUSAL,A+M+G,Stationary off,Driving,19
+Bus B,120s_hop60s,CAUSAL,A+M+G,Stationary on,Stationary off,84
+Bus B,120s_hop60s,CAUSAL,A+M+G,Stationary on,Stationary on,3232
+Bus B,120s_hop60s,CAUSAL,A+M+G,Stationary on,Charging,182
+Bus B,120s_hop60s,CAUSAL,A+M+G,Stationary on,Driving,17
+Bus B,120s_hop60s,CAUSAL,A+M+G,Charging,Stationary off,141
+Bus B,120s_hop60s,CAUSAL,A+M+G,Charging,Stationary on,723
+Bus B,120s_hop60s,CAUSAL,A+M+G,Charging,Charging,2298
+Bus B,120s_hop60s,CAUSAL,A+M+G,Charging,Driving,0
+Bus B,120s_hop60s,CAUSAL,A+M+G,Driving,Stationary off,23
+Bus B,120s_hop60s,CAUSAL,A+M+G,Driving,Stationary on,23
+Bus B,120s_hop60s,CAUSAL,A+M+G,Driving,Charging,0
+Bus B,120s_hop60s,CAUSAL,A+M+G,Driving,Driving,5565
