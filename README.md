@@ -14,15 +14,14 @@ This repository provides the comprehensive benchmark, machine-readable feature m
 3. [Feature Representations & Causal Transformation](#feature-representations--causal-transformation)
 4. [Sensor Configurations & In-Domain Benchmarks](#sensor-configurations--in-domain-benchmarks)
 5. [In-Domain Normalization & Preprocessing Control](#in-domain-normalization--preprocessing-control)
-6. [Magnetic Representation & Feature Block Analysis](#magnetic-representation--feature-block-analysis)
-7. [Cross-Vehicle Transfer & Directional Asymmetry](#cross-vehicle-transfer--directional-asymmetry)
-8. [Confounding Factor Controls (Sample Size & Class Distribution)](#confounding-factor-controls-sample-size--class-distribution)
-9. [Target Domain Adaptation & Budget Sensitivity](#target-domain-adaptation--budget-sensitivity)
-10. [Supervised Target Calibration (Few-Shot Adaptation)](#supervised-target-calibration-few-shot-adaptation)
-11. [Charging Event Detection & Session-Level Performance](#charging-event-detection--session-level-performance)
-12. [Repository File Inventory](#repository-file-inventory)
-13. [Quickstart & Usage](#quickstart--usage)
-14. [Citation & Contact](#citation--contact)
+6. [Cross-Vehicle Transfer & Directional Asymmetry](#cross-vehicle-transfer--directional-asymmetry)
+7. [Confounding Factor Controls (Sample Size & Class Distribution)](#confounding-factor-controls-sample-size--class-distribution)
+8. [Target Domain Adaptation & Budget Sensitivity](#target-domain-adaptation--budget-sensitivity)
+9. [Supervised Target Calibration (Few-Shot Adaptation)](#supervised-target-calibration-few-shot-adaptation)
+10. [Charging Event Detection & Session-Level Performance](#charging-event-detection--session-level-performance)
+11. [Repository File Inventory](#repository-file-inventory)
+12. [Quickstart & Usage](#quickstart--usage)
+13. [Citation & Contact](#citation--contact)
 
 ---
 
@@ -148,7 +147,7 @@ To test whether standard feature normalization techniques can replace causal med
 
 ---
 
-## 🧲 Magnetic Representation & Feature Block Analysis
+<!-- ## 🧲 Magnetic Representation & Feature Block Analysis
 
 The 41 magnetometer descriptors were isolated into dedicated functional blocks (`magnetic_in_domain_results.csv`, `magnetic_transfer_results.csv`, `magnetic_paired_contrasts.csv`):
 * **`LEVEL_AXIS`** (12 features): Axis-referenced statistics ($X, Y, Z$ percentiles, RMS, absolute mean).
@@ -170,7 +169,7 @@ The 41 magnetometer descriptors were isolated into dedicated functional blocks (
 * **Level vs Dynamics for Charging**: In transfer, `LEVEL_AMPLITUDE` outperforms `VARIABILITY_DYNAMICS` by $\Delta = +0.5814$ on Charging $F_1$ ($p < 0.002$; 99.8% bootstrap samples $> 0$).
 * **Rotation Invariance**: `LEVEL_NORM` achieves mathematically exact rotation invariance ($\Delta_{\text{yaw}} = 0.0000$), whereas unnormalized axial level features suffer an orientation penalty of $\Delta \approx -0.30$ to $-0.33$ under 90° azimuth rotation.
 
----
+--- -->
 
 ## 🔁 Cross-Vehicle Transfer & Directional Asymmetry
 
@@ -290,9 +289,6 @@ Under direct transfer, sensor mounting azimuth misalignment severely impedes cha
 | `in_domain_bus_B_by_class.csv` | CSV | Class-level performance metrics for Bus B. |
 | `in_domain_bus_B_confusion_matrix.csv` | CSV | Empirical confusion matrices for all sensor configurations on Bus B. |
 | `in_domain_normalization_control.csv` | CSV | Systematic evaluation of 5 normalization schemes (RAW, CAUSAL, ZSCORE, CORAL, QUANTILE) on unlabeled test folds. |
-| `magnetic_in_domain_results.csv` | CSV | In-domain classification performance across isolated magnetic descriptor subsets (Axis, Norm, Level, Variability). |
-| `magnetic_transfer_results.csv` | CSV | Cross-vehicle transfer evaluation of magnetic blocks under standard and 90° azimuth rotated orientations. |
-| `magnetic_paired_contrasts.csv` | CSV | 2,000-repetition bootstrap paired contrast hypothesis tests on magnetic feature blocks. |
 | `source_only_transfer.csv` | CSV | Complete bidirectional transfer evaluation (Bus A $\leftrightarrow$ Bus B) across 7 sensor configurations and 2 orientations. |
 | `equal_source_size_control.csv` | CSV | Controlled Monte Carlo analysis isolating dataset sample size effects from vehicle physical domain shifts. |
 | `equal_class_day_control.csv` | CSV | Controlled experimental evaluation isolating the day effect (30 vs 254 days) from vehicle-specific domain shifts. |
